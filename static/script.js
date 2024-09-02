@@ -1,3 +1,15 @@
+client_id = makeid()
+var ws = new WebSocket(`ws://localhost:8000/ws/${client_id}`);
+
+
+ws.onmessage = function(event) {
+    var message = document.createElement('div');
+    message.className = 'text-start';
+    message.innerHTML = `<strong>Stranger:</strong> ${event.data}`;
+    chatWindow.appendChild(message);
+};
+
+
 // Function to send message
 function sendMessage() {
     var chatInput = document.getElementById('chatInput');
@@ -7,9 +19,23 @@ function sendMessage() {
         message.className = 'text-end';
         message.innerHTML = `<strong>You:</strong> ${chatInput.value}`;
         chatWindow.appendChild(message);
-        chatInput.value = '';
         chatWindow.scrollTop = chatWindow.scrollHeight;
+        ws.send(chatInput.value)
+        chatInput.value = '';
+
     }
+}
+
+function makeid() {
+    let result = '';
+    const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    const charactersLength = characters.length;
+    let counter = 0;
+    while (counter < 5) {
+      result += characters.charAt(Math.floor(Math.random() * charactersLength));
+      counter += 1;
+    }
+    return result;
 }
 
 // Send message on button click

@@ -32,5 +32,7 @@ Please make sure to update tests as appropriate.
 
 
 - [x] UI for the chat App  
-- [ ] Setup backend
+- [x] Setup backend  
+- [ ] Accept terms based on IP  
+- [ ] Add functionality to skip button
 
