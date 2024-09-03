@@ -34,5 +34,7 @@ Please make sure to update tests as appropriate.
 - [x] UI for the chat App  
 - [x] Setup backend  
 - [ ] Accept terms based on IP  
-- [ ] Add functionality to skip button
+- [ ] Add functionality to skip button  
+- [ ] Handle deleting from queue()  
+- [ ] Detect messages from server  
 
