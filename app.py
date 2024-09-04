@@ -3,32 +3,36 @@ from fastapi.responses import HTMLResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 from collections import deque
-
+from utils.response import Response
 
 class ConnectionManager:
 
     available_connections = deque()
     active_connections = {}
 
+    
+
     def __init__(self):
         self.stranger_socket: WebSocket
+        self.resp = Response()
 
     async def connect(self, user: WebSocket):
         await user.accept()
+        
 
         if ConnectionManager.available_connections:
             stranger = ConnectionManager.available_connections.popleft()
             ConnectionManager.active_connections[user] = stranger
             ConnectionManager.active_connections[stranger] = user
-            await user.send_text('connected to user')
-            await stranger.send_text('connected to a user')
+            await user.send_json(self.resp.json(Response.RESPONSE_ALERT,'connected to a user'))
+            await stranger.send_json(self.resp.json(Response.RESPONSE_ALERT,'connected to a user'))
         else:
             ConnectionManager.available_connections.append(user)
-            await user.send_text('No users available now...')
+            await user.send_json(self.resp.json(Response.RESPONSE_ALERT,'No users available now...'))
         print(ConnectionManager.available_connections)
 
     async def send_message(self, user : WebSocket, message:str):
-        await ConnectionManager.active_connections[user].send_text(message)
+        await ConnectionManager.active_connections[user].send_json(self.resp.json(Response.RESPONSE_OK,message))
 
     def disconnect(self, websocket: WebSocket):
         del ConnectionManager.available_connections[websocket]
@@ -62,7 +66,5 @@ async def websocket_endpoint(websocket: WebSocket, client_id: str):
         while True:
             data = await websocket.receive_text()
             await manager.send_message(websocket, data)
-            #await manager.broadcast(f"Client #{client_id} says: {data}")
     except WebSocketDisconnect:
         manager.disconnect(websocket)
-        #await manager.broadcast(f"Client #{client_id} has left the chat")

@@ -5,7 +5,16 @@ var ws = new WebSocket(`ws://localhost:8000/ws/${client_id}`);
 ws.onmessage = function(event) {
     var message = document.createElement('div');
     message.className = 'text-start';
-    message.innerHTML = `<strong>Stranger:</strong> ${event.data}`;
+    const response_data = JSON.parse(event.data)
+    
+    if (response_data.code == 203){
+        message.innerHTML = `<strong>Server: </strong> ${response_data.message}`;
+    }
+    else{
+        message.innerHTML = `<strong>Stranger: </strong> ${response_data.message}`;
+    }
+
+    
     chatWindow.appendChild(message);
 };
 
