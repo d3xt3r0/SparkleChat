@@ -8,7 +8,7 @@ ws.onmessage = function(event) {
     const response_data = JSON.parse(event.data)
     
     if (response_data.code == 203){
-        message.innerHTML = `<strong>Server: </strong> ${response_data.message}`;
+        message.innerHTML = `<strong>  ${response_data.message} </strong>`;
     }
     else{
         message.innerHTML = `<strong>Stranger: </strong> ${response_data.message}`;

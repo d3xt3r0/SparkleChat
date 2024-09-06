@@ -24,11 +24,11 @@ class ConnectionManager:
             stranger = ConnectionManager.available_connections.popleft()
             ConnectionManager.active_connections[user] = stranger
             ConnectionManager.active_connections[stranger] = user
-            await user.send_json(self.resp.json(Response.RESPONSE_ALERT,'connected to a user'))
-            await stranger.send_json(self.resp.json(Response.RESPONSE_ALERT,'connected to a user'))
+            await user.send_json(self.resp.json(Response.RESPONSE_ALERT,'Connected to a stranger..'))
+            await stranger.send_json(self.resp.json(Response.RESPONSE_ALERT,'Connected to a stranger..'))
         else:
             ConnectionManager.available_connections.append(user)
-            await user.send_json(self.resp.json(Response.RESPONSE_ALERT,'No users available now...'))
+            await user.send_json(self.resp.json(Response.RESPONSE_ALERT,'No users available now..'))
         print(ConnectionManager.available_connections)
 
     async def send_message(self, user : WebSocket, message:str):
