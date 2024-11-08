@@ -13,7 +13,7 @@ pip install -R REQUIREMENTS.txt
 ## Usage
 
 ```python
-uvicorn main:app --reload
+uvicorn app:app --reload
 ```
 
 ## Contributing
