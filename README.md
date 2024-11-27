@@ -33,5 +33,4 @@ Please make sure to update tests as appropriate.
 - [ ] Accept terms based on IP  
 - [ ] Add functionality to skip button  
 - [ ] Handle deleting from queue()  
-- [x] Detect messages from server   
 
