@@ -29,7 +29,6 @@ Please make sure to update tests as appropriate.
 
 ## TODO  
 
-- [x] Setup backend  
 - [ ] Accept terms based on IP  
 - [ ] Add functionality to skip button  
 - [ ] Handle deleting from queue()  
